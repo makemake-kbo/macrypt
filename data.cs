@@ -1,14 +1,13 @@
 using System;
 using System.Collections.Generic;
 
-
 namespace macrypt {
 
     public class transaction
     {
 
         public transaction() { }
-        public transaction(string from, string to, int amount)
+        public transaction(string from, string to, uint amount)
         {
             this.From = from;
             this.To = to;
@@ -17,7 +16,7 @@ namespace macrypt {
 
         public string From { get; set; }
         public string To { get; set; }
-        public int Amount { get; set; }
+        public uint Amount { get; set; }
     }
 
     public class block {
