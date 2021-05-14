@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace macrypt {
+namespace macrypt.data {
 
     public class transaction
     {
@@ -23,7 +23,9 @@ namespace macrypt {
         public ulong nonce { get; set; }
         public string hash { get; set; }
         public string previousHash { get; set; }
+        public uint reward { get; set; }
         public DateTime timestamp { get; set; }
+        public string extdata { get; set; }
         public List<transaction> txList { get; set; }
     }
 
