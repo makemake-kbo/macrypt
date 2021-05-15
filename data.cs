@@ -18,7 +18,7 @@ namespace macrypt.data {
         public string From { get; set; }
         public string To { get; set; }
         public uint Amount { get; set; }
-        public uint Fee {get; set}
+        public uint Fee {get; set;}
     }
 
     public class block {

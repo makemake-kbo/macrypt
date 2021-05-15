@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using macrypt.data;
 
-namespace Blockchain.miner {
+namespace macrypt.mempool {
     public class Mempool {
         private List<transaction> mempool;
 
