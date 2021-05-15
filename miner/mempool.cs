@@ -13,13 +13,13 @@ namespace Blockchain.miner {
             mempool = new List<transaction>();
         }
 
-        public void addRaw(transaction transaction) {
+        public void addRawTx(transaction transaction) {
             lock (lockObj) {
                 mempool.Add(transaction);
             }
         }
-        public void addTx(string from, string to, uint amount) {
-            var transaction = new transaction(from, to, amount);
+        public void addTx(string from, string to, uint amount, uint fee) {
+            var transaction = new transaction(from, to, amount, fee);
             lock (lockObj)
             {
                 mempool.Add(transaction);

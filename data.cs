@@ -7,16 +7,18 @@ namespace macrypt.data {
     {
 
         public transaction() { }
-        public transaction(string from, string to, uint amount)
+        public transaction(string from, string to, uint amount, uint fee)
         {
             this.From = from;
             this.To = to;
             this.Amount = amount;
+            this.Fee = fee;
         }
 
         public string From { get; set; }
         public string To { get; set; }
         public uint Amount { get; set; }
+        public uint Fee {get; set}
     }
 
     public class block {
