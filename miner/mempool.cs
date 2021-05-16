@@ -26,12 +26,17 @@ namespace macrypt.mempool {
             }
         }
 
-        public List<transaction> returnMempool() {
+
+            public List<transaction> returnMempool() {
             lock (lockObj) {
                 var all = mempool.ToList();
-                mempool.Clear();
                 return all;
             }
         }
+
+        public void clearMempool() {
+            mempool.Clear();
+        }
+
     }
 }
