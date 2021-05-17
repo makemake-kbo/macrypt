@@ -1,15 +1,11 @@
 using macrypt.data;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Blockchain.Miner
+namespace macrypt.Miner
 {
     public interface IBlockMiner
     {
-        List<Block> Blockchain { get; }
+        List<block> Blockchain { get; }
 
         void Start();
 
