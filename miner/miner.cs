@@ -16,7 +16,7 @@ namespace macrypt.Miner {
         private Mempool mempool;
         public List<block> blockchain { get; private set; }
 
-        public string nodeName = "Melachoir";
+        public string nodeName = "Melchior";
         private CancellationTokenSource cancellationToken;
 
         public void blockMiner(Mempool mempool)
