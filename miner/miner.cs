@@ -19,7 +19,7 @@ namespace macrypt.Miner {
         public string nodeName = "Melachoir";
         private CancellationTokenSource cancellationToken;
 
-        public void BlockMiner(Mempool mempool)
+        public void blockMiner(Mempool mempool)
         {
             blockchain = new List<block>();
             this.mempool = mempool;
@@ -31,7 +31,7 @@ namespace macrypt.Miner {
 
             var newBlock = new block() {
                 nonce = 0,
-                hash = "",
+                hash = string.Empty,
                 previousHash = previousBlock?.hash ?? string.Empty,
                 reward = blockReward,
                 timestamp = DateTime.Now,
