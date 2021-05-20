@@ -41,7 +41,19 @@ namespace macrypt.Miner {
         }
 
         public void mineBlock(block blockToMine) {
+            var merkleRootHash = FindMerkleRootHash(blockToMine.txList);
+            ulong currentNonce = 0;
+            var hash = string.Empty;
 
+            do {
+                var rowData = blockToMine.previousHash + blockToMine.nonce + merkleRootHash;
+                hash = calculateHash(calculateHash(rowData));
+                currentNonce++;
+            }
+            while(!hash.StartsWith("0000"));
+
+            blockToMine.hash = hash;
+            blockToMine.nonce = currentNonce;
         }
 
         public string createRootHash(IList<string> merkelLeaves) {
@@ -69,7 +81,7 @@ namespace macrypt.Miner {
 
         private string FindMerkleRootHash(IList<transaction> txList)
         {
-            var transactionStrList = txList.Select(tran => CalculateHash(CalculateHash(tran.From + tran.To + tran.Amount))).ToList();
+            var transactionStrList = txList.Select(tran => calculateHash(calculateHash(tran.From + tran.To + tran.Amount))).ToList();
             return createRootHash(transactionStrList);
         }
 
