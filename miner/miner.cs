@@ -9,9 +9,11 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace macrypt.Miner {
+namespace macrypt.Miner
+{
 
-    public class miner : IBlockMiner {
+    public class miner : IBlockMiner
+    {
         private static uint blockReward = 6500000;
         private Mempool mempool;
         public List<block> blockchain { get; private set; }
@@ -40,23 +42,25 @@ namespace macrypt.Miner {
             {
                 nonce = 0,
                 hash = string.Empty,
-                previousHash =  blockchain.LastOrDefault()?.hash ?? string.Empty,
+                previousHash = blockchain.LastOrDefault()?.hash ?? string.Empty,
                 reward = blockReward,
                 timestamp = DateTime.Now,
                 extdata = "macrypt core",
                 txList = txList
-                
+
             };
             mineBlock(block);
             blockchain.Add(block);
             mempool.clearMempool();
         }
 
-        public void createBlock() {
+        public void createBlock()
+        {
             var previousBlock = blockchain.LastOrDefault();
             var txList = mempool.returnMempool();
 
-            var newBlock = new block() {
+            var newBlock = new block()
+            {
                 nonce = 0,
                 hash = string.Empty,
                 previousHash = previousBlock?.hash ?? string.Empty,
@@ -67,31 +71,37 @@ namespace macrypt.Miner {
             };
         }
 
-        public void mineBlock(block blockToMine) {
+        public void mineBlock(block blockToMine)
+        {
             var merkleRootHash = FindMerkleRootHash(blockToMine.txList);
             ulong currentNonce = 0;
             var hash = string.Empty;
 
-            do {
+            do
+            {
                 var rowData = blockToMine.previousHash + blockToMine.nonce + merkleRootHash;
                 hash = calculateHash(calculateHash(rowData));
                 currentNonce++;
             }
-            while(!hash.StartsWith("0000"));
+            while (!hash.StartsWith("0000"));
 
             blockToMine.hash = hash;
             blockToMine.nonce = currentNonce;
         }
 
-        public string createRootHash(IList<string> merkelLeaves) {
-            if (merkelLeaves == null || !merkelLeaves.Any()) {
+        public string createRootHash(IList<string> merkelLeaves)
+        {
+            if (merkelLeaves == null || !merkelLeaves.Any())
+            {
                 return string.Empty;
             }
-            if (merkelLeaves.Count() == 1) {
+            if (merkelLeaves.Count() == 1)
+            {
                 return merkelLeaves.First();
             }
 
-            if (merkelLeaves.Count() % 2 > 0) {
+            if (merkelLeaves.Count() % 2 > 0)
+            {
                 merkelLeaves.Add(merkelLeaves.Last());
             }
 
@@ -127,4 +137,7 @@ namespace macrypt.Miner {
                 return builder.ToString();
             }
 
+        }
     }
+    
+}
