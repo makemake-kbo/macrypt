@@ -25,6 +25,33 @@ namespace macrypt.Miner {
             this.mempool = mempool;
         }
 
+        private void generateBlock()
+        {
+            var lastBlock = blockchain.LastOrDefault();
+            var txList = mempool.returnMempool();
+            txList.Add(new transaction()
+            {
+                Amount = blockReward,
+                From = "coinbase",
+                To = nodeName
+            });
+
+            var block = new block()
+            {
+                nonce = 0,
+                hash = string.Empty,
+                previousHash =  blockchain.LastOrDefault()?.hash ?? string.Empty,
+                reward = blockReward,
+                timestamp = DateTime.Now,
+                extdata = "macrypt core",
+                txList = txList
+                
+            };
+            mineBlock(block);
+            blockchain.Add(block);
+            mempool.clearMempool();
+        }
+
         public void createBlock() {
             var previousBlock = blockchain.LastOrDefault();
             var txList = mempool.returnMempool();
