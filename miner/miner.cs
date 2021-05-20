@@ -67,6 +67,12 @@ namespace macrypt.Miner {
             return createRootHash(merkleBranches);
         }
 
+        private string FindMerkleRootHash(IList<transaction> txList)
+        {
+            var transactionStrList = txList.Select(tran => CalculateHash(CalculateHash(tran.From + tran.To + tran.Amount))).ToList();
+            return createRootHash(transactionStrList);
+        }
+
         public static string calculateHash(string rawData)
         {
             // SHA512 for asiic resistance hehe
