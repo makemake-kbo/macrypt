@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace macrypt.Miner {
-    
+
     public class miner : IBlockMiner {
         private static uint blockReward = 6500000;
         private Mempool mempool;
