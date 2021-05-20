@@ -5,7 +5,7 @@ namespace macrypt.Miner
 {
     public interface IBlockMiner
     {
-        List<block> Blockchain { get; }
+        List<block> blockchain { get; }
 
         void Start();
 

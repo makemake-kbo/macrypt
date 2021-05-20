@@ -27,6 +27,18 @@ namespace macrypt.Miner
             this.mempool = mempool;
         }
 
+        public void Start()
+        {
+            cancellationToken = new CancellationTokenSource();
+            Task.Run(() => generateBlock(), cancellationToken.Token);
+            Console.WriteLine("Mining has started");
+        }
+        public void Stop()
+        {
+            cancellationToken.Cancel();
+            Console.WriteLine("mining stopped");
+        }
+
         private void generateBlock()
         {
             var lastBlock = blockchain.LastOrDefault();
@@ -139,5 +151,5 @@ namespace macrypt.Miner
 
         }
     }
-    
+
 }
