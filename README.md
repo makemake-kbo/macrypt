@@ -15,3 +15,7 @@ in the root folder.
 ### Visual Studio
 
 Open the project file and run macrypt.
+
+## Networking and connecting to other nodes
+
+*TODO*
