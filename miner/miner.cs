@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 namespace macrypt.Miner
 {
 
-    public class miner : IBlockMiner
+    public class blockMiner : IBlockMiner
     {
         private static uint blockReward = 6500000;
         private Mempool mempool;
@@ -21,7 +21,7 @@ namespace macrypt.Miner
         public string nodeName = "Melchior";
         private CancellationTokenSource cancellationToken;
 
-        public void blockMiner(Mempool mempool)
+        public void Miner(Mempool mempool)
         {
             blockchain = new List<block>();
             this.mempool = mempool;
@@ -30,13 +30,20 @@ namespace macrypt.Miner
         public void Start()
         {
             cancellationToken = new CancellationTokenSource();
-            Task.Run(() => generateBlock(), cancellationToken.Token);
             Console.WriteLine("Mining has started");
+            doGenerateBlock();
         }
         public void Stop()
         {
             cancellationToken.Cancel();
-            Console.WriteLine("mining stopped");
+            Console.WriteLine("Mining stopped");
+        }
+
+        private void doGenerateBlock() {
+            while (true) 
+            {
+                generateBlock();                
+            }
         }
 
         private void generateBlock()
@@ -62,41 +69,30 @@ namespace macrypt.Miner
 
             };
             mineBlock(block);
+            Console.ReadKey();
             blockchain.Add(block);
             mempool.clearMempool();
         }
 
-        public void createBlock()
-        {
-            var previousBlock = blockchain.LastOrDefault();
-            var txList = mempool.returnMempool();
-
-            var newBlock = new block()
-            {
-                nonce = 0,
-                hash = string.Empty,
-                previousHash = previousBlock?.hash ?? string.Empty,
-                reward = blockReward,
-                timestamp = DateTime.Now,
-                extdata = "macrypt core",
-                txList = txList
-            };
-        }
 
         public void mineBlock(block blockToMine)
         {
             var merkleRootHash = FindMerkleRootHash(blockToMine.txList);
             ulong currentNonce = 0;
             var hash = string.Empty;
-
+            Console.WriteLine("Started mining on block");
+            Console.WriteLine(blockToMine.txList);
             do
             {
-                var rowData = blockToMine.previousHash + blockToMine.nonce + merkleRootHash;
+                Console.WriteLine("currentNonce == {0}", currentNonce);
+                var rowData = blockToMine.previousHash + currentNonce + merkleRootHash;
                 hash = calculateHash(calculateHash(rowData));
+                Console.WriteLine("hash == {0}", hash);
                 currentNonce++;
             }
-            while (!hash.StartsWith("0000"));
+            while (!hash.StartsWith("00000"));
 
+            Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;
             blockToMine.nonce = currentNonce;
         }
@@ -136,10 +132,9 @@ namespace macrypt.Miner
 
         public static string calculateHash(string rawData)
         {
-            // SHA512 for asiic resistance hehe
-            using (SHA512 sha512Hash = SHA512.Create())
+            using (SHA256 sha256Hash = SHA256.Create())
             {
-                byte[] bytes = sha512Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
+                byte[] bytes = sha256Hash.ComputeHash(Encoding.UTF8.GetBytes(rawData));
 
                 StringBuilder builder = new StringBuilder();
                 for (int i = 0; i < bytes.Length; i++)

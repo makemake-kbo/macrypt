@@ -30,5 +30,4 @@ namespace macrypt.data {
         public string extdata { get; set; }
         public List<transaction> txList { get; set; }
     }
-
 }
