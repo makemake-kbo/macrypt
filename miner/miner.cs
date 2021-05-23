@@ -55,7 +55,7 @@ namespace macrypt.Miner
                 Amount = blockReward,
                 From = "coinbase",
                 To = nodeName
-            });
+                });
 
             var block = new block()
             {
@@ -84,13 +84,18 @@ namespace macrypt.Miner
             Console.WriteLine(blockToMine.txList);
             do
             {
-                Console.WriteLine("currentNonce == {0}", currentNonce);
+                // reduce terminal memory usage while still giving back input
+                if (currentNonce % 10000 == 0) 
+                {
+                    Console.WriteLine("currentNonce == {0}", currentNonce);
+
+                }
                 var rowData = blockToMine.previousHash + currentNonce + merkleRootHash;
                 hash = calculateHash(calculateHash(rowData));
-                Console.WriteLine("hash == {0}", hash);
+                //Console.WriteLine("hash == {0}", hash);
                 currentNonce++;
             }
-            while (!hash.StartsWith("00000"));
+            while (!hash.StartsWith("000000"));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;
