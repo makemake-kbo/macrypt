@@ -19,7 +19,6 @@ namespace macrypt
             Console.WriteLine(mempool.returnMempool());
 
             miner.Start();
-
         }
     }
 }

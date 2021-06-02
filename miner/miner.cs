@@ -14,11 +14,11 @@ namespace macrypt.Miner
 
     public class blockMiner : IBlockMiner
     {
-        private static uint blockReward = 6500000;
+        private static uint blockReward = 6500000; // nagrada za blok
         private Mempool mempool;
         public List<block> blockchain { get; private set; }
 
-        public string nodeName = "Melchior";
+        public string nodeName = "Melchior"; // za umrezavanje kako se indentifikuje node
         private CancellationTokenSource cancellationToken;
 
         public void Miner(Mempool mempool)
@@ -90,12 +90,12 @@ namespace macrypt.Miner
                     Console.WriteLine("currentNonce == {0}", currentNonce);
 
                 }
-                var rowData = blockToMine.previousHash + currentNonce + merkleRootHash;
-                hash = calculateHash(calculateHash(rowData));
+                var rawData = blockToMine.previousHash + currentNonce + merkleRootHash+ blockToMine.timestamp;
+                hash = calculateHash(calculateHash(rawData));
                 //Console.WriteLine("hash == {0}", hash);
                 currentNonce++;
             }
-            while (!hash.StartsWith("000000"));
+            while (!hash.StartsWith("0000000000"));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;
@@ -134,6 +134,7 @@ namespace macrypt.Miner
             var transactionStrList = txList.Select(tran => calculateHash(calculateHash(tran.From + tran.To + tran.Amount))).ToList();
             return createRootHash(transactionStrList);
         }
+
 
         public static string calculateHash(string rawData)
         {
