@@ -5,6 +5,7 @@ using EmbedIO.WebApi;
 using System;
 using System.Linq;
 using System.Text.Json;
+using Newtonsoft.Json;
 
 using macrypt.Miner;
 using macrypt.data;
@@ -63,7 +64,7 @@ namespace macrypt.Server
             }
 
             [Route(HttpVerbs.Get, "/blocks")]
-            public string GetAllBlocks() => JsonSerializer.Serialize(blockMiner.blockchain);
+            public string GetAllBlocks() => Newtonsoft.Json.JsonConvert.SerializeObject(blockMiner.blockchain);
 
             [Route(HttpVerbs.Get, "/blocks/index/{index?}")]
             public string GetAllBlocks(int index)
@@ -71,14 +72,14 @@ namespace macrypt.Server
                 data.block block = null;
                 if (index < blockMiner.blockchain.Count)
                     block = blockMiner.blockchain[index];
-                return JsonSerializer.Serialize(block);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(block);
             }
 
             [Route(HttpVerbs.Get, "/blocks/latest")]
             public string GetLatestBlocks()
             {
                 var block = blockMiner.blockchain.LastOrDefault();
-                return JsonSerializer.Serialize(block);
+                return Newtonsoft.Json.JsonConvert.SerializeObject(block);
             }
 
             //{"From":"alice","To":"bob","Amount":1000000000000}

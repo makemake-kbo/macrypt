@@ -80,7 +80,6 @@ namespace macrypt.Miner
             ulong currentNonce = 0;
             var hash = string.Empty;
             Console.WriteLine("Started mining on block");
-            Console.WriteLine(blockToMine.txList);
             do
             {
                 var rawData = blockToMine.previousHash + currentNonce + merkleRootHash+ blockToMine.timestamp;
