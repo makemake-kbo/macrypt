@@ -69,7 +69,6 @@ namespace macrypt.Miner
 
             };
             mineBlock(block);
-            Console.ReadKey();
             blockchain.Add(block);
             mempool.clearMempool();
         }
@@ -84,18 +83,11 @@ namespace macrypt.Miner
             Console.WriteLine(blockToMine.txList);
             do
             {
-                // reduce terminal memory usage while still giving back input
-                if (currentNonce % 10000 == 0) 
-                {
-                    Console.WriteLine("currentNonce == {0}", currentNonce);
-
-                }
                 var rawData = blockToMine.previousHash + currentNonce + merkleRootHash+ blockToMine.timestamp;
                 hash = calculateHash(calculateHash(rawData));
-                //Console.WriteLine("hash == {0}", hash);
                 currentNonce++;
             }
-            while (!hash.StartsWith("0000000000"));
+            while (!hash.StartsWith("00000"));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;

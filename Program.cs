@@ -1,7 +1,9 @@
 ﻿using System;
+
 using macrypt.data;
 using macrypt.mempool;
 using macrypt.Miner;
+using macrypt.Server;
 
 namespace macrypt
 {
@@ -9,15 +11,14 @@ namespace macrypt
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("macrypt core V0.1");
+            Console.WriteLine("macrypt core V0.2");
             Mempool mempool = new Mempool();
-            mempool.addTx("bob", "alice", 10000, 0);
-
             blockMiner miner = new blockMiner();
+            RPCServer server = new RPCServer();
+            server.EmbedServer(mempool, miner);
+
+            server.Start();
             miner.Miner(mempool);
-
-            Console.WriteLine(mempool.returnMempool());
-
             miner.Start();
         }
     }

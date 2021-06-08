@@ -19,21 +19,22 @@ namespace macrypt.Server
 
         private WebServer server;
         private string url;
+
         public void EmbedServer(Mempool mempool, blockMiner miner)
         {
-            url = "http://localhost:69/";
+            url = "http://localhost:6475/";
 
             server = CreateWebServer(url);
             this.mempool = mempool;
             this.miner = miner;
         }
+
         public void Stop()
         {
             Console.WriteLine("http server stopped");
         }
         public void Start()
         {
-            // Once we've registered our modules and configured them, we call the RunAsync() method.
             server.RunAsync();
             Console.WriteLine($"http server available at {url}api");
         }

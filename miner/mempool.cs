@@ -18,7 +18,7 @@ namespace macrypt.mempool {
                 mempool.Add(transaction);
             }
         }
-        
+
         public void addTx(string from, string to, uint amount, uint fee) {
             var transaction = new transaction(from, to, amount, fee);
             lock (lockObj)
