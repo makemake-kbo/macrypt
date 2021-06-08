@@ -86,7 +86,7 @@ namespace macrypt.Miner
                 hash = calculateHash(calculateHash(rawData));
                 currentNonce++;
             }
-            while (!hash.StartsWith("00000"));
+            while (!hash.StartsWith("000000"));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;

@@ -82,7 +82,7 @@ namespace macrypt.Server
                 return Newtonsoft.Json.JsonConvert.SerializeObject(block);
             }
 
-            //{"From":"alice","To":"bob","Amount":1000000000000}
+            //curl -d '{"From":"alice","To":"bob","Amount":1000000000000}' -H "Content-Type: application/json" -X POST http://localhost:6475/api/add
             [Route(HttpVerbs.Post, "/add")]
             public void AddTransaction()
             {
