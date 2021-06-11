@@ -11,7 +11,7 @@ namespace macrypt
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("macrypt core V0.2");
+            Console.WriteLine("macrypt core V0.2.1");
             Mempool mempool = new Mempool();
             blockMiner miner = new blockMiner();
             RPCServer server = new RPCServer();
