@@ -28,7 +28,7 @@ Which will give you the latest block in JSON format.
 
 To send transactions you would send a post request like this:   
 ```shell
-curl -d '{"from":"alice","to":"bob","amount":1000000000000,"fee":0}' -H "Content-Type: application/json" -X POST http://localhost:6475/api/add
+curl -d '{"From":"alice","To":"bob","Amount":100000,"Fee":0}' -H "Content-Type: application/json" -X POST http://localhost:6475/api/add
 ```     
 ![image](https://user-images.githubusercontent.com/55022497/121389181-6f7b9680-c94c-11eb-9f90-49f7a4701094.png)
 
