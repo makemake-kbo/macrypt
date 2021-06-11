@@ -142,6 +142,11 @@ namespace macrypt.Miner
             }
 
         }
+
+        public static string getBlockHash(block blockToHash,  IList<transaction> txList, ulong currentNonce) {
+            var rawData = blockToHash.previousHash + currentNonce + FindMerkleRootHash(txList)+ blockToHash.timestamp;
+            return calculateHash(calculateHash(rawData));
+        }
     }
 
 }
