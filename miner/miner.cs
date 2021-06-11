@@ -49,13 +49,7 @@ namespace macrypt.Miner
         private void generateBlock()
         {
             var lastBlock = blockchain.LastOrDefault();
-            var txList = mempool.returnMempool();
-            txList.Add(new transaction()
-            {
-                Amount = blockReward,
-                From = "coinbase",
-                To = nodeName
-                });
+            List<transaction> emptyTxList = mempool.returnMempool();
 
             var block = new block()
             {
@@ -65,7 +59,7 @@ namespace macrypt.Miner
                 reward = blockReward,
                 timestamp = DateTime.Now,
                 extdata = "macrypt core",
-                txList = txList
+                txList = emptyTxList
 
             };
             mineBlock(block);
@@ -82,18 +76,25 @@ namespace macrypt.Miner
             Console.WriteLine("Started mining on block");
             do
             {
-                var rawData = blockToMine.previousHash + currentNonce + merkleRootHash+ blockToMine.timestamp;
-                hash = calculateHash(calculateHash(rawData));
+                var txList = mempool.returnMempool();
+                txList.Add(new transaction()
+                {
+                    Amount = blockReward,
+                    From = "coinbase",
+                    To = nodeName
+                });
+                blockToMine.txList = txList;
+                hash = getBlockHash(blockToMine, blockToMine.txList, currentNonce);
                 currentNonce++;
             }
-            while (!hash.StartsWith("000000"));
+            while (!hash.StartsWith("00000"));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;
             blockToMine.nonce = currentNonce;
         }
 
-        public string createRootHash(IList<string> merkelLeaves)
+        public static string createRootHash(IList<string> merkelLeaves)
         {
             if (merkelLeaves == null || !merkelLeaves.Any())
             {
@@ -120,7 +121,7 @@ namespace macrypt.Miner
             return createRootHash(merkleBranches);
         }
 
-        private string FindMerkleRootHash(IList<transaction> txList)
+        private static string FindMerkleRootHash(IList<transaction> txList)
         {
             var transactionStrList = txList.Select(tran => calculateHash(calculateHash(tran.From + tran.To + tran.Amount))).ToList();
             return createRootHash(transactionStrList);
