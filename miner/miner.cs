@@ -15,8 +15,14 @@ namespace macrypt.Miner
     public class blockMiner : IBlockMiner
     {
         private static uint blockReward = 6500000; // nagrada za blok
+        public string difficulty { get {
+            return "00000";
+        }}
+
         private Mempool mempool;
         public List<block> blockchain { get; private set; }
+
+        public block recievedBlock { get; set; }
 
         public string nodeName = "Melchior"; // za umrezavanje kako se indentifikuje node
         private CancellationTokenSource cancellationToken;
@@ -87,7 +93,7 @@ namespace macrypt.Miner
                 hash = getBlockHash(blockToMine, blockToMine.txList, currentNonce);
                 currentNonce++;
             }
-            while (!hash.StartsWith("00000"));
+            while (!hash.StartsWith(difficulty));
 
             Console.WriteLine("Block finished mining with hash {0} and nonce {1}", hash, currentNonce);
             blockToMine.hash = hash;
@@ -121,7 +127,7 @@ namespace macrypt.Miner
             return createRootHash(merkleBranches);
         }
 
-        private static string FindMerkleRootHash(IList<transaction> txList)
+        public static string FindMerkleRootHash(IList<transaction> txList)
         {
             var transactionStrList = txList.Select(tran => calculateHash(calculateHash(tran.From + tran.To + tran.Amount))).ToList();
             return createRootHash(transactionStrList);
@@ -144,8 +150,14 @@ namespace macrypt.Miner
 
         }
 
-        public static string getBlockHash(block blockToHash,  IList<transaction> txList, ulong currentNonce) {
+        public static string getBlockHash(block blockToHash,  IList<transaction> txList, ulong currentNonce)
+        {
             var rawData = blockToHash.previousHash + currentNonce + FindMerkleRootHash(txList)+ blockToHash.timestamp;
+            return calculateHash(calculateHash(rawData));
+        }
+        public string getFinishedBlockHash(block blockToHash)
+        {
+            var rawData = blockToHash.previousHash + blockToHash.nonce + FindMerkleRootHash(blockToHash.txList) + blockToHash.timestamp;
             return calculateHash(calculateHash(rawData));
         }
     }

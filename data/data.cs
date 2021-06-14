@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 
+
 namespace macrypt.data {
 
     public class transaction

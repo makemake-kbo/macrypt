@@ -7,8 +7,15 @@ namespace macrypt.Miner
     {
         List<block> blockchain { get; }
 
+        block recievedBlock { get; set; }
+
+        string difficulty { get; }
+
         void Start();
 
         void Stop();
+
+        string getFinishedBlockHash(block blockToHash);
+
     }
 }

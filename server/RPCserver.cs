@@ -90,6 +90,19 @@ namespace macrypt.Server
                 if (data != null && data.Result != null)
                     mempool.addRawTx(data.Result);
             }
+
+            [Route(HttpVerbs.Post, "/add/block")]
+            public async void AddBlock()
+            {
+                IBlockMiner blockMinerInterface = new blockMiner();
+                var data = HttpContext.GetRequestDataAsync<data.block>();
+                block block = await data;
+                if (block != null && blockMinerInterface.getFinishedBlockHash(block).StartsWith(blockMinerInterface.difficulty))
+                {
+                    blockMinerInterface.recievedBlock = block;
+                }
+                    
+            }
         }
     }
 }
