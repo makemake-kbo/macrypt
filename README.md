@@ -1,5 +1,5 @@
 # macrypt
-Macrypt is a new research blockchain and cryptocurrency built completely from scratch.
+Macrypt is a new research blockchain built completely from scratch.
 
 ![image](https://user-images.githubusercontent.com/55022497/121734995-cffa0780-caf5-11eb-914a-86639e49de08.png)
 
