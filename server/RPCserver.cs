@@ -10,6 +10,8 @@ using Newtonsoft.Json;
 using macrypt.Miner;
 using macrypt.data;
 using macrypt.mempool;
+using macrypt.PeerStore;
+
 
 namespace macrypt.Server
 {
@@ -21,7 +23,7 @@ namespace macrypt.Server
         private WebServer server;
         private string url;
 
-        public void EmbedServer(Mempool mempool, blockMiner miner)
+        public void EmbedServer(Mempool mempool, blockMiner miner, Peers peer)
         {
             url = "http://localhost:6475/";
 

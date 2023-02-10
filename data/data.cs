@@ -31,9 +31,4 @@ namespace macrypt.data {
         public string extdata { get; set; }
         public List<transaction> txList { get; set; }
     }
-
-    public class peer {
-        public string ip { get; set; }
-        public string port { get; set; }
-    }
 }

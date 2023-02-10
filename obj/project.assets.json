@@ -1,7 +1,7 @@
 {
   "version": 3,
   "targets": {
-    "net5.0": {
+    "net6.0": {
       "EmbedIO/3.4.3": {
         "type": "package",
         "dependencies": {
@@ -92,35 +92,35 @@
     }
   },
   "projectFileDependencyGroups": {
-    "net5.0": [
+    "net6.0": [
       "EmbedIO >= 3.4.3",
       "Newtonsoft.Json >= 13.0.1"
     ]
   },
   "packageFolders": {
-    "/Users/vukasingostovic/.nuget/packages/": {}
+    "/home/makemake/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/vukasingostovic/Documents/code/csharp/macrypt/macrypt.csproj",
+      "projectUniqueName": "/home/makemake/Documents/code/dotnet/macrypt/macrypt.csproj",
       "projectName": "macrypt",
-      "projectPath": "/Users/vukasingostovic/Documents/code/csharp/macrypt/macrypt.csproj",
-      "packagesPath": "/Users/vukasingostovic/.nuget/packages/",
-      "outputPath": "/Users/vukasingostovic/Documents/code/csharp/macrypt/obj/",
+      "projectPath": "/home/makemake/Documents/code/dotnet/macrypt/macrypt.csproj",
+      "packagesPath": "/home/makemake/.nuget/packages/",
+      "outputPath": "/home/makemake/Documents/code/dotnet/macrypt/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "/Users/vukasingostovic/.nuget/NuGet/NuGet.Config"
+        "/home/makemake/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
-        "net5.0"
+        "net6.0"
       ],
       "sources": {
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
-        "net5.0": {
-          "targetAlias": "net5.0",
+        "net6.0": {
+          "targetAlias": "net6.0",
           "projectReferences": {}
         }
       },
@@ -131,8 +131,8 @@
       }
     },
     "frameworks": {
-      "net5.0": {
-        "targetAlias": "net5.0",
+      "net6.0": {
+        "targetAlias": "net6.0",
         "dependencies": {
           "EmbedIO": {
             "target": "Package",
@@ -158,7 +158,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/5.0.102/RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/6.0.113/RuntimeIdentifierGraph.json"
       }
     }
   }

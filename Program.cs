@@ -4,6 +4,7 @@ using macrypt.data;
 using macrypt.mempool;
 using macrypt.Miner;
 using macrypt.Server;
+using macrypt.PeerStore;
 
 namespace macrypt
 {
@@ -15,7 +16,9 @@ namespace macrypt
             Mempool mempool = new Mempool();
             blockMiner miner = new blockMiner();
             RPCServer server = new RPCServer();
-            server.EmbedServer(mempool, miner);
+            Peers peers = new Peers();
+
+            server.EmbedServer(mempool, miner, peers);
 
             server.Start();
             miner.Miner(mempool);
